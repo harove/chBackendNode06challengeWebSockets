@@ -12,7 +12,7 @@ webRouter.get('/products', async (req, res) => {
 
 webRouter.get('/realtimeproducts', async (req, res) => {
     const products = await productsManager.findAll();
-    res.render('home.handlebars', {
+    res.render('realTimeProducts.handlebars', {
         products,
         titulo: 'Realtime Products'
     });

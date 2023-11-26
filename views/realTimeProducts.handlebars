@@ -1,7 +1,7 @@
 <h1>{{titulo}}</h1>
-{{#if productos.length>0}}
-<ul>
-    {{#each productos}}
+{{#if products}}
+<ul class="realtimeul">
+    {{#each products}}
     <li>{{this.title}} {{this.code}}</li>
     {{/each}}
 </ul>
