@@ -46,6 +46,7 @@ export async function deleteController(req, res) {
     const id = req.params.id
     try {
         const pojos = await manager.delete(id)
+        res['newProduct']()
         res.json(pojos)
     } catch (error) {
         res.status(404).json({
