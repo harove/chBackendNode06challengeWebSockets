@@ -4,6 +4,7 @@ export async function postController(req, res) {
     const pojo = req.body
     try {
         await manager.create(pojo)
+        res['newProduct']()
         res.json(pojo)
     } catch (error) {
         res.json({message:error.message})

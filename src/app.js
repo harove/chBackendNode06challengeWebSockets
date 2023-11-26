@@ -3,6 +3,7 @@ import { apiRouter } from './routers/api.router.js'
 import handlebars from 'express-handlebars'
 import { webRouter } from './routers/web.Router.js'
 import {Server} from 'socket.io'
+import { productsManager } from './services/productsManager.js'
 
 // import {  } from './midlewares/midlewares.js'
 
@@ -24,12 +25,25 @@ const server = app.listen(8080, ()=> {console.log('conectado')})
 
 const websocketServer = new Server(server)
 
+app.use((req,res,next)=>{
+    res['newProduct'] = async()=>{
+        const products = await productsManager.findAll()
+        websocketServer.emit('newProduct', {products} )
+    }
+    next()
+})
+
+
 //Routers
 app.use('/api',apiRouter)
 app.use('/',webRouter)
+
+
+
 app.use((req, res, next) => {
     res.status(404).send('Not Found');
 });
+
 
 
 websocketServer.on('connection', (socket)=>{
